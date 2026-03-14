@@ -1,6 +1,9 @@
 package com.manoelalmorais.alugafacil.service;
 
 import com.manoelalmorais.alugafacil.domain.Usuario;
+import com.manoelalmorais.alugafacil.security.JwtService;
+import com.manoelalmorais.alugafacil.dto.LoginRequestDTO;
+import com.manoelalmorais.alugafacil.dto.LoginResponseDTO;
 import com.manoelalmorais.alugafacil.dto.UsuarioRequestDTO;
 import com.manoelalmorais.alugafacil.dto.UsuarioResponseDTO;
 import com.manoelalmorais.alugafacil.repository.UsuarioRepository;
@@ -16,6 +19,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public Optional<Usuario> buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
@@ -39,5 +43,18 @@ public class UsuarioService {
                 salvo.getPlano(),
                 salvo.getAtivo()
         );
+    }
+
+    public LoginResponseDTO login(LoginRequestDTO dto){
+        Usuario usuario = usuarioRepository.findByEmail(dto.email())
+                .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+
+        if (!passwordEncoder.matches(dto.senha(), usuario.getSenha())) {
+            throw new RuntimeException("Senha incorreta");
+        }
+
+        String token = jwtService.gerarToken(usuario.getEmail());
+
+        return new LoginResponseDTO(token);
     }
 }
