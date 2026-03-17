@@ -6,35 +6,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "imovel")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+public class Imovel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String nome;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String senha;
-
-    private String telefone;
-
-    private String plano;
-
-    private Boolean ativo;
+    private String titulo;
+    private String estado;
+    private String cep;
+    private String cidade;
+    private String endereco;
+    private String bairro;
+    private String tipo;
+    private BigDecimal valor;
+    private Integer quartos;
+    private Integer banheiro;
+    private String descricao;
+    private String status;
+    private Boolean visivelPublico;
 
     @Column(name = "criado_em", updatable = false)
     private LocalDateTime criadoEm;
@@ -43,8 +46,4 @@ public class Usuario {
     public void prePersist() {
         this.criadoEm = LocalDateTime.now();
     }
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Imovel> imoveis;
-
 }
