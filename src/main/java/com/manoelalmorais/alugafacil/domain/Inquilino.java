@@ -7,34 +7,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "inquilino")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+public class Inquilino {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     private String nome;
 
-    @Column(nullable = false, unique = true)
+    private String cpf;
+
     private String email;
 
-    @Column(nullable = false)
-    private String senha;
-
     private String telefone;
-
-    private String plano;
-
-    private Boolean ativo;
 
     @Column(name = "criado_em", updatable = false)
     private LocalDateTime criadoEm;
@@ -43,10 +39,4 @@ public class Usuario {
     public void prePersist() {
         this.criadoEm = LocalDateTime.now();
     }
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Imovel> imoveis;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Inquilino> inquilinos;
 }

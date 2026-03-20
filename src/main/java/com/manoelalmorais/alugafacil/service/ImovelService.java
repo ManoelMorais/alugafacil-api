@@ -43,7 +43,7 @@ public class ImovelService {
 
     public ImovelResponseDTO getImovelByID(Long id){
         Imovel imovel =  imovelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Imovel nao encontrado: " + id));
+                .orElseThrow(() -> new RuntimeException("Imovel não encontrado: " + id));
 
         return new ImovelResponseDTO(
                 imovel.getId(),
