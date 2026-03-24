@@ -11,6 +11,4 @@ import java.util.Optional;
 public interface ImovelRepository extends JpaRepository<Imovel, Long> {
 
     Optional<Imovel> findByTitulo(String titulo);
-
-    List<Imovel> id(Long id);
 }

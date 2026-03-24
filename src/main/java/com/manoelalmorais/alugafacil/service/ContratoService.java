@@ -60,12 +60,15 @@ public class ContratoService {
         Contrato contrato = new Contrato();
         contrato.setInquilino(inquilino);
         contrato.setImovel(imovel);
-        contrato.setStatus(dto.status());
         contrato.setValor(dto.valor());
         contrato.setDataInicio(dto.dataInicio());
         contrato.setDataFim(dto.dataFim());
         contrato.setDiaVencimento(dto.diaVencimento());
         contrato.setObservacoes(dto.observacoes());
+        contrato.setStatus(dto.status());
+
+        imovel.setStatus("ALUGADO");
+        imovelRepository.save(imovel);
 
         Contrato salvo = contratoRepository.save(contrato);
 
@@ -83,7 +86,7 @@ public class ContratoService {
     public ContratoResponseDTO updateContrato(Long id, ContratoRequestDTO dto) {
 
         Contrato contrato = contratoRepository.findById(id)
-                .orElseThrow( () -> new RuntimeException("Inquilino não encontrado: " + id));
+                .orElseThrow( () -> new RuntimeException("Contrato não encontrado: " + id));
 
         contrato.setStatus(dto.status());
         contrato.setValor(dto.valor());
@@ -106,9 +109,14 @@ public class ContratoService {
     }
 
     public void deleteContrato(Long id) {
-        if (!contratoRepository.existsById(id)) {
-            throw new RuntimeException("Contrato com ID " + id + "não encontrado");
-        }
+
+        Contrato contrato = contratoRepository.findById(id)
+                .orElseThrow( () -> new RuntimeException("Contrato não encontrado: " + id));
+
+        Imovel imovel = contrato.getImovel();
+
+        imovel.setStatus("DISPONIVEL");
+        imovelRepository.save(imovel);
         contratoRepository.deleteById(id);
     }
 }

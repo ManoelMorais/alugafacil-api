@@ -31,8 +31,8 @@ public class UsuarioService {
         usuario.setEmail(dto.email());
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
         usuario.setTelefone(dto.telefone());
-        usuario.setAtivo(true);
         usuario.setPlano("BASICO");
+        usuario.setAtivo(true);
 
         Usuario salvo = usuarioRepository.save(usuario);
 
