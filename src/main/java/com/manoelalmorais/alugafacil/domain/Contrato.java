@@ -7,38 +7,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Date;
 
 @Entity
-@Table(name = "imovel")
+@Table(name = "contrato")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Imovel {
+public class Contrato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    private String titulo;
-    private String estado;
-    private String cep;
-    private String cidade;
-    private String endereco;
-    private String bairro;
-    private String tipo;
     private BigDecimal valor;
-    private Integer quartos;
-    private Integer banheiro;
-    private String descricao;
+    private LocalDate  dataInicio;
+    private LocalDate dataFim;
+    private Integer diaVencimento;
     private String status;
-    private Boolean visivelPublico;
+    private String observacoes;
 
     @Column(name = "criado_em", updatable = false)
     private LocalDateTime criadoEm;
@@ -48,6 +38,11 @@ public class Imovel {
         this.criadoEm = LocalDateTime.now();
     }
 
-    @OneToMany(mappedBy = "imovel")
-    private List<Contrato> contratoes;
+    @ManyToOne
+    @JoinColumn(name = "imovel_id")
+    private Imovel imovel;
+
+    @ManyToOne
+    @JoinColumn(name = "inquilino_id")
+    private Inquilino inquilino;
 }

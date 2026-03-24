@@ -1,7 +1,7 @@
 package com.manoelalmorais.alugafacil.controller;
 
-import com.manoelalmorais.alugafacil.dto.UsuarioRequestDTO;
-import com.manoelalmorais.alugafacil.dto.UsuarioResponseDTO;
+import com.manoelalmorais.alugafacil.dto.usuario.UsuarioRequestDTO;
+import com.manoelalmorais.alugafacil.dto.usuario.UsuarioResponseDTO;
 import com.manoelalmorais.alugafacil.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

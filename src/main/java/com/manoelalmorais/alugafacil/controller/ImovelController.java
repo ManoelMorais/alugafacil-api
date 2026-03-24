@@ -1,7 +1,7 @@
 package com.manoelalmorais.alugafacil.controller;
 
-import com.manoelalmorais.alugafacil.dto.ImovelRequestDTO;
-import com.manoelalmorais.alugafacil.dto.ImovelResponseDTO;
+import com.manoelalmorais.alugafacil.dto.imovel.ImovelRequestDTO;
+import com.manoelalmorais.alugafacil.dto.imovel.ImovelResponseDTO;
 import com.manoelalmorais.alugafacil.service.ImovelService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

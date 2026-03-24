@@ -1,4 +1,4 @@
-package com.manoelalmorais.alugafacil.dto;
+package com.manoelalmorais.alugafacil.dto.usuario;
 
 public record InquilinoRequestDTO(
         String nome,

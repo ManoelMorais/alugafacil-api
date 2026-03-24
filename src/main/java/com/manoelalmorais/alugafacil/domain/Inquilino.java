@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "inquilino")
@@ -39,4 +40,7 @@ public class Inquilino {
     public void prePersist() {
         this.criadoEm = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "inquilino")
+    private List<Contrato> contratoes;
 }

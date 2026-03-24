@@ -1,9 +1,8 @@
-package com.manoelalmorais.alugafacil.dto;
+package com.manoelalmorais.alugafacil.dto.imovel;
 
 import java.math.BigDecimal;
 
-public record ImovelResponseDTO(
-        Long id,
+public record ImovelRequestDTO(
         String titulo,
         String estado,
         String cep,

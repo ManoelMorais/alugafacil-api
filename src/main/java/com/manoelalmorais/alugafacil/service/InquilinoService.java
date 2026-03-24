@@ -2,8 +2,8 @@ package com.manoelalmorais.alugafacil.service;
 
 import com.manoelalmorais.alugafacil.domain.Inquilino;
 import com.manoelalmorais.alugafacil.domain.Usuario;
-import com.manoelalmorais.alugafacil.dto.InquilinoRequestDTO;
-import com.manoelalmorais.alugafacil.dto.InquilinoResponseDTO;
+import com.manoelalmorais.alugafacil.dto.usuario.InquilinoRequestDTO;
+import com.manoelalmorais.alugafacil.dto.usuario.InquilinoResponseDTO;
 import com.manoelalmorais.alugafacil.repository.InquilinoRepository;
 import com.manoelalmorais.alugafacil.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;

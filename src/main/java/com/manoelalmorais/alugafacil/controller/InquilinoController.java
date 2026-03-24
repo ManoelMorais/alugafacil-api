@@ -1,7 +1,7 @@
 package com.manoelalmorais.alugafacil.controller;
 
-import com.manoelalmorais.alugafacil.dto.InquilinoRequestDTO;
-import com.manoelalmorais.alugafacil.dto.InquilinoResponseDTO;
+import com.manoelalmorais.alugafacil.dto.usuario.InquilinoRequestDTO;
+import com.manoelalmorais.alugafacil.dto.usuario.InquilinoResponseDTO;
 import com.manoelalmorais.alugafacil.service.InquilinoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class InquilinoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updadeInquilino(@PathVariable Long id, @RequestBody @Valid InquilinoRequestDTO dto){
+    public ResponseEntity<Object> updateInquilino(@PathVariable Long id, @RequestBody @Valid InquilinoRequestDTO dto){
         return ResponseEntity.status(HttpStatus.OK).body(inquilinoService.updateInquilino(id, dto));
     }
 
