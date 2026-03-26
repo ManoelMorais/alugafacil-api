@@ -31,7 +31,7 @@ public class ImovelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ImovelResponseDTO> getByImoveis(@PathVariable Long id) {
+    public ResponseEntity<ImovelResponseDTO> getByIdImoveis(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(imovelService.getImovelByID(id));
     }
 
