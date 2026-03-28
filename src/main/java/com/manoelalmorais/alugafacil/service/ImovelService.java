@@ -18,6 +18,7 @@ public class ImovelService {
 
     private final ImovelRepository imovelRepository;
     private final UsuarioRepository usuarioRepository;
+    private final FotoImovelService fotoImovelService;
 
     public List<ImovelResponseDTO> getAllImoveis(){
         return imovelRepository.findAll()
@@ -150,6 +151,8 @@ public class ImovelService {
         if (!imovelRepository.existsById(id)) {
             throw new RuntimeException("Imovel com ID" + id + "não encontrado");
         }
+
+        fotoImovelService.deletarTodasDoImovel(id);
         imovelRepository.deleteById(id);
     }
 
