@@ -6,6 +6,7 @@ import com.manoelalmorais.alugafacil.dto.usuario.InquilinoRequestDTO;
 import com.manoelalmorais.alugafacil.dto.usuario.InquilinoResponseDTO;
 import com.manoelalmorais.alugafacil.repository.InquilinoRepository;
 import com.manoelalmorais.alugafacil.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class InquilinoService {
 
     public InquilinoResponseDTO getInquilinoBy(Long id) {
         Inquilino inquilino = inquilinoRepository.findById(id)
-                .orElseThrow( () -> new RuntimeException("Inquilino não encontrado: " + id));
+                .orElseThrow( () -> new EntityNotFoundException("Inquilino não encontrado: " + id));
 
         return new InquilinoResponseDTO(
                 inquilino.getId(),
@@ -52,7 +53,7 @@ public class InquilinoService {
                 .getName();
 
         Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario nao encontrado"));
 
         Inquilino inquilino = new Inquilino();
         inquilino.setUsuario(usuario);
@@ -74,7 +75,7 @@ public class InquilinoService {
 
     public InquilinoResponseDTO updateInquilino(Long id, InquilinoRequestDTO dto){
         Inquilino inquilino =inquilinoRepository.findById(id)
-                .orElseThrow( () -> new RuntimeException("Inquilino não encontrado: " + id));
+                .orElseThrow( () -> new EntityNotFoundException("Inquilino não encontrado: " + id));
 
         inquilino.setNome(dto.nome());
         inquilino.setEmail(dto.email());
@@ -94,7 +95,7 @@ public class InquilinoService {
 
     public void deleteInquilino(Long id){
         if (!inquilinoRepository.existsById(id)) {
-            throw new RuntimeException("Inquilino com ID " + id + "não encontrado");
+            throw new EntityNotFoundException("Inquilino com ID " + id + "não encontrado");
         }
         inquilinoRepository.deleteById(id);
     }

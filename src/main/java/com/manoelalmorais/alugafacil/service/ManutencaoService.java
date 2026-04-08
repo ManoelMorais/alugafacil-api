@@ -6,6 +6,7 @@ import com.manoelalmorais.alugafacil.dto.imovel.ManutencaoRequestDTO;
 import com.manoelalmorais.alugafacil.dto.imovel.ManutencaoResponseDTO;
 import com.manoelalmorais.alugafacil.repository.ImovelRepository;
 import com.manoelalmorais.alugafacil.repository.ManutencaoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class ManutencaoService {
     }
 
     public ManutencaoResponseDTO getManutencaoId(Long id) {
-        Manutencao manutencao = manutencaoRepository.findById(id).orElseThrow( () -> new RuntimeException("Contrato não encontrado" + id));
+        Manutencao manutencao = manutencaoRepository.findById(id).orElseThrow( () -> new EntityNotFoundException("Contrato não encontrado" + id));
 
         return new ManutencaoResponseDTO(
                 manutencao.getId(),
@@ -47,7 +48,7 @@ public class ManutencaoService {
     public ManutencaoResponseDTO cadastrarManutencao(ManutencaoRequestDTO dto) {
 
         Imovel imovel = imovelRepository.findById(dto.imovelId())
-                .orElseThrow(() -> new RuntimeException("Imovel nao encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Imovel não encontrado"));
 
         Manutencao manutencao = new Manutencao();
         manutencao.setImovel(imovel);
@@ -72,7 +73,7 @@ public class ManutencaoService {
     public ManutencaoResponseDTO updadeManutencao(Long id, ManutencaoRequestDTO dto) {
 
         Manutencao manutencao = manutencaoRepository.findById(id)
-                .orElseThrow( () -> new RuntimeException("Manutenção não encontrada: " + id));
+                .orElseThrow( () -> new EntityNotFoundException("Manutenção não encontrada: " + id));
 
         manutencao.setDescricao(dto.descricao());
         manutencao.setCusto(dto.custo());
@@ -94,7 +95,7 @@ public class ManutencaoService {
 
     public void deleteManutencao(Long id) {
         if (!manutencaoRepository.existsById(id)) {
-            throw new RuntimeException("Manutenção com ID" + id + "não encontado");
+            throw new EntityNotFoundException("Manutenção com ID" + id + "não encontado");
         }
         manutencaoRepository.deleteById(id);
     }

@@ -25,7 +25,7 @@ public class ContratoController {
 
     @PostMapping
     public ResponseEntity<ContratoResponseDTO> criarContrato(
-                @RequestBody ContratoRequestDTO contratoRequestDTO
+            @Valid @RequestBody ContratoRequestDTO contratoRequestDTO
         ) {
         return new ResponseEntity<>(contratoService.cadastrarContrato(contratoRequestDTO), HttpStatus.CREATED);
     }
@@ -36,13 +36,13 @@ public class ContratoController {
     }
 
     @PutMapping("/{id}")
-     public ResponseEntity<Object> updateContrato(@PathVariable Long id, @RequestBody @Valid ContratoRequestDTO dto) {
+     public ResponseEntity<Object> updateContrato(@PathVariable Long id, @Valid @RequestBody ContratoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.OK).body(contratoService.updateContrato(id, dto));
      }
 
      @DeleteMapping("/{id}")
      public ResponseEntity<Object> deleteContrato(@PathVariable Long id) {
         contratoService.deleteContrato(id);
-         return ResponseEntity.status(HttpStatus.OK).body("Contrato deletado com sucesso!");
+        return ResponseEntity.status(HttpStatus.OK).body("Contrato deletado com sucesso!");
      }
 }

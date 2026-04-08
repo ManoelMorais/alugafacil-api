@@ -6,6 +6,7 @@ import com.manoelalmorais.alugafacil.dto.imovel.ImovelRequestDTO;
 import com.manoelalmorais.alugafacil.dto.imovel.ImovelResponseDTO;
 import com.manoelalmorais.alugafacil.repository.ImovelRepository;
 import com.manoelalmorais.alugafacil.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,7 @@ public class ImovelService {
 
     public ImovelResponseDTO getImovelByID(Long id){
         Imovel imovel =  imovelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Imovel não encontrado: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Imovel não encontrado: " + id));
 
         return new ImovelResponseDTO(
                 imovel.getId(),
@@ -71,7 +72,7 @@ public class ImovelService {
                 .getName();
 
         Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario nao encontrado"));
 
         Imovel imovel = new Imovel();
         imovel.setUsuario(usuario);
@@ -111,7 +112,7 @@ public class ImovelService {
 
     public ImovelResponseDTO updateImovel(Long id, ImovelRequestDTO dto){
         Imovel imovel = imovelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Imovel nao encontrado: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Imovel nao encontrado: " + id));
 
         imovel.setTitulo(dto.titulo());
         imovel.setEstado(dto.estado());
@@ -149,7 +150,7 @@ public class ImovelService {
 
     public void deleteImovel(Long id) {
         if (!imovelRepository.existsById(id)) {
-            throw new RuntimeException("Imovel com ID" + id + "não encontrado");
+            throw new EntityNotFoundException("Imovel com ID" + id + "não encontrado");
         }
 
         fotoImovelService.deletarTodasDoImovel(id);

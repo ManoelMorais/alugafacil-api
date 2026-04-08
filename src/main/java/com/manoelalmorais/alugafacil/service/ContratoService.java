@@ -8,6 +8,7 @@ import com.manoelalmorais.alugafacil.dto.contrato.ContratoResponseDTO;
 import com.manoelalmorais.alugafacil.repository.ContratoRepository;
 import com.manoelalmorais.alugafacil.repository.ImovelRepository;
 import com.manoelalmorais.alugafacil.repository.InquilinoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class ContratoService {
     }
 
     public ContratoResponseDTO getContratoById(Long id) {
-        Contrato contrato = contratoRepository.findById(id).orElseThrow(() -> new RuntimeException("Contrato não encontrado" + id));
+        Contrato contrato = contratoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Contrato não encontrado" + id));
 
         return new ContratoResponseDTO(
                 contrato.getId(),
@@ -52,10 +53,10 @@ public class ContratoService {
     public ContratoResponseDTO cadastrarContrato(ContratoRequestDTO dto){
 
         Imovel imovel = imovelRepository.findById(dto.imovelId())
-                .orElseThrow(() -> new RuntimeException("Imovel nao encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Imovel nao encontrado"));
 
         Inquilino inquilino = inquilinoRepository.findById(dto.inquilinoId())
-                .orElseThrow(() -> new RuntimeException("Inquilino nao encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Inquilino nao encontrado"));
 
         Contrato contrato = new Contrato();
         contrato.setInquilino(inquilino);
@@ -86,7 +87,7 @@ public class ContratoService {
     public ContratoResponseDTO updateContrato(Long id, ContratoRequestDTO dto) {
 
         Contrato contrato = contratoRepository.findById(id)
-                .orElseThrow( () -> new RuntimeException("Contrato não encontrado: " + id));
+                .orElseThrow( () -> new EntityNotFoundException("Contrato não encontrado: " + id));
 
         contrato.setStatus(dto.status());
         contrato.setValor(dto.valor());
@@ -111,7 +112,7 @@ public class ContratoService {
     public void deleteContrato(Long id) {
 
         Contrato contrato = contratoRepository.findById(id)
-                .orElseThrow( () -> new RuntimeException("Contrato não encontrado: " + id));
+                .orElseThrow( () -> new EntityNotFoundException("Contrato não encontrado: " + id));
 
         Imovel imovel = contrato.getImovel();
 

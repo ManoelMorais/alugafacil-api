@@ -3,6 +3,7 @@ package com.manoelalmorais.alugafacil.controller;
 import com.manoelalmorais.alugafacil.dto.usuario.UsuarioRequestDTO;
 import com.manoelalmorais.alugafacil.dto.usuario.UsuarioResponseDTO;
 import com.manoelalmorais.alugafacil.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class UsuarioController {
 
     @PostMapping()
     public ResponseEntity<UsuarioResponseDTO> criarUsuario(
-            @RequestBody UsuarioRequestDTO usuarioRequestDTO
+            @Valid @RequestBody UsuarioRequestDTO usuarioRequestDTO
     ) {
         return new ResponseEntity<>(usuarioService.cadastrar(usuarioRequestDTO), HttpStatus.CREATED);
     }

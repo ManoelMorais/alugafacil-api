@@ -7,6 +7,7 @@ import com.manoelalmorais.alugafacil.dto.LoginResponseDTO;
 import com.manoelalmorais.alugafacil.dto.usuario.UsuarioRequestDTO;
 import com.manoelalmorais.alugafacil.dto.usuario.UsuarioResponseDTO;
 import com.manoelalmorais.alugafacil.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,10 +48,10 @@ public class UsuarioService {
 
     public LoginResponseDTO login(LoginRequestDTO dto){
         Usuario usuario = usuarioRepository.findByEmail(dto.email())
-                .orElseThrow(() -> new RuntimeException("Usuario nao encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 
         if (!passwordEncoder.matches(dto.senha(), usuario.getSenha())) {
-            throw new RuntimeException("Senha incorreta");
+            throw new IllegalStateException("Acesso negado");
         }
 
         String token = jwtService.gerarToken(usuario.getEmail());

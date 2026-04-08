@@ -57,7 +57,7 @@ public class NotificacaoService {
                 .orElseThrow(() -> new EntityNotFoundException("Notificação não encontrada: " + notificacaoId));
 
         if (!n.getUsuario().getId().equals(usuario.getId())) {
-            throw new RuntimeException("Acesso negado");
+            throw new IllegalStateException("Acesso negado");
         }
 
         n.setLida(true);
@@ -74,7 +74,7 @@ public class NotificacaoService {
     // Utilitário interno
     private Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado: " + email));
     }
 
     private NotificacaoResponseDTO toDTO(Notificacao n) {

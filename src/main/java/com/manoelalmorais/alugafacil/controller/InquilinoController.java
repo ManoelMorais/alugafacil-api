@@ -25,7 +25,7 @@ public class InquilinoController {
 
     @PostMapping
     public ResponseEntity<InquilinoResponseDTO> criarInquilino(
-            @RequestBody InquilinoRequestDTO inquilinoRequestDTO
+            @Valid @RequestBody InquilinoRequestDTO inquilinoRequestDTO
     ) {
         return new ResponseEntity<>(inquilinoService.cadastrarInquilino(inquilinoRequestDTO), HttpStatus.CREATED);
     }
@@ -36,7 +36,7 @@ public class InquilinoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateInquilino(@PathVariable Long id, @RequestBody @Valid InquilinoRequestDTO dto){
+    public ResponseEntity<Object> updateInquilino(@PathVariable Long id, @Valid @RequestBody InquilinoRequestDTO dto){
         return ResponseEntity.status(HttpStatus.OK).body(inquilinoService.updateInquilino(id, dto));
     }
 

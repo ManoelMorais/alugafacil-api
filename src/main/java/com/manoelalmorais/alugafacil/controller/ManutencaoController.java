@@ -25,7 +25,7 @@ public class ManutencaoController {
 
     @PostMapping
     public ResponseEntity<ManutencaoResponseDTO> criarManutencao(
-        @RequestBody ManutencaoRequestDTO manutencaoRequestDTO
+            @Valid @RequestBody ManutencaoRequestDTO manutencaoRequestDTO
     ) {
         return new ResponseEntity<>(manutencaoService.cadastrarManutencao(manutencaoRequestDTO), HttpStatus.CREATED);
     }
@@ -36,7 +36,7 @@ public class ManutencaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateManutenca(@PathVariable Long id, @RequestBody @Valid ManutencaoRequestDTO dto) {
+    public ResponseEntity<Object> updateManutenca(@PathVariable Long id, @Valid @RequestBody ManutencaoRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.OK).body(manutencaoService.updadeManutencao(id, dto));
     }
 

@@ -25,7 +25,7 @@ public class ImovelController {
 
     @PostMapping()
     public ResponseEntity<ImovelResponseDTO> criarImovel(
-            @RequestBody ImovelRequestDTO imovelRequestDTO
+           @Valid @RequestBody ImovelRequestDTO imovelRequestDTO
     ) {
         return new ResponseEntity<>(imovelService.cadastrarImovel(imovelRequestDTO), HttpStatus.CREATED);
     }
