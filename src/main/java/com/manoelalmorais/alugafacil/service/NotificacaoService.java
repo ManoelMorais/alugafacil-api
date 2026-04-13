@@ -18,7 +18,7 @@ import java.util.List;
 public class NotificacaoService {
 
     private final NotificacaoRepository notificacaoRepository;
-    private final UsuarioRepository     usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Transactional
     public void criarAlertaContrato(Usuario usuario, Contrato contrato, TipoNotificacao tipo, String mensagem) {
